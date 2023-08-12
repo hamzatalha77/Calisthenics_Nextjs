@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server'
 import { exercises, db } from '../db'
-import { fetchExercises } from '../../lib/data'
+import { createExercise, fetchExercises } from '../../lib/data'
+import slugify from 'slugify'
+import { ObjectId } from 'mongodb'
 
 type Data = {
   name: string
@@ -18,4 +20,44 @@ export async function GET(req: Request, res: Response) {
   }
 }
 
-export async function POST(req: Request) {}
+export async function POST(req: Request, res: Response) {
+  const {
+    title,
+    description,
+    images,
+    video,
+    tags,
+    muscles,
+    technique,
+    reps,
+    sets,
+    duration,
+    category,
+    subcategories
+  } = await req.json()
+
+  try {
+    const exercise = {
+      _id: new ObjectId(),
+      slug: slugify(title),
+      title,
+      description,
+      images,
+      video,
+      tags,
+      muscles,
+      technique,
+      reps,
+      sets,
+      duration,
+      category,
+      subcategories
+    }
+
+    await createExercise(exercise)
+
+    return NextResponse.json({ message: 'OK', exercise }, { status: 201 })
+  } catch (error) {
+    return NextResponse.json({ message: 'Error', error }, { status: 500 })
+  }
+}
