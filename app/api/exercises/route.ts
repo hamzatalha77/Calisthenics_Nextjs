@@ -37,6 +37,7 @@ export async function POST(req: Request, res: Response) {
   } = await req.json()
 
   try {
+    const now = new Date()
     const exercise = {
       _id: new ObjectId(),
       slug: slugify(title),
@@ -51,7 +52,9 @@ export async function POST(req: Request, res: Response) {
       sets,
       duration,
       category,
-      subcategories
+      subcategories,
+      createdAt: now,
+      updatedAt: now
     }
 
     await createExercise(exercise)

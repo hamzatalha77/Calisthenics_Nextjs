@@ -15,6 +15,8 @@ type Exercise = {
   duration: number
   category: string
   subcategories: string[]
+  createdAt: Date
+  updatedAt: Date
 }
 
 const fetchExercises = async () => {
@@ -23,6 +25,9 @@ const fetchExercises = async () => {
 }
 
 const createExercise = async (exercise: Exercise) => {
+  const now = new Date()
+  exercise.createdAt = now
+  exercise.updatedAt = now
   await exercises.insertOne(exercise)
 }
 
