@@ -1,9 +1,10 @@
-import React from 'react'
-
-const CreateExerciseScreen = () => {
+import React, { ComponentPropsWithRef } from 'react'
+type Props = ComponentPropsWithRef<'input'>
+const CreateExerciseScreen = (props: Props) => {
   return (
-    <div className="App">
+    <div>
       <h1>Create Exercise</h1>
+      <input {...props} type="file" multiple />
     </div>
   )
 }
