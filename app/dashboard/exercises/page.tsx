@@ -1,7 +1,20 @@
-import React, { ComponentPropsWithRef } from 'react'
+'use client'
+
+import React, { ComponentPropsWithRef, useState } from 'react'
 type Props = ComponentPropsWithRef<'input'>
 
 const CreateExerciseScreen = (props: Props) => {
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+  const [images, setImages] = useState('')
+  const [video, setVideo] = useState('')
+  const [tags, setTags] = useState('')
+  const [muscles, setMuscles] = useState('')
+  const [technique, setTechnique] = useState('')
+  const [reps, setReps] = useState('')
+  const [duration, setDuration] = useState('')
+  const [category, setCategory] = useState('')
+
   return (
     <div>
       <h1>Create Exercise</h1>
