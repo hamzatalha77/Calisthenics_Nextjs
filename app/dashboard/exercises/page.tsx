@@ -12,9 +12,32 @@ const CreateExerciseScreen = (props: Props) => {
   const [muscles, setMuscles] = useState('')
   const [technique, setTechnique] = useState('')
   const [reps, setReps] = useState('')
+  const [sets, setSets] = useState('')
   const [duration, setDuration] = useState('')
   const [category, setCategory] = useState('')
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    fetch('http://localhost:3000/api/exercises', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        title,
+        description,
+        images,
+        video,
+        tags,
+        muscles,
+        technique,
+        reps,
+        sets,
+        duration,
+        category
+      })
+    })
+  }
   return (
     <div>
       <h1>Create Exercise</h1>
@@ -23,7 +46,7 @@ const CreateExerciseScreen = (props: Props) => {
         <h1 className="text-xl font-bold text-white capitalize dark:text-white">
           Account settings
         </h1>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
             <div>
               <label className="text-white dark:text-gray-200" htmlFor="title">
