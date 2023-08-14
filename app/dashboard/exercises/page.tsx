@@ -13,28 +13,22 @@ const CreateExerciseScreen = (props: Props) => {
         <form>
           <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
             <div>
-              <label
-                className="text-white dark:text-gray-200"
-                htmlFor="username"
-              >
-                Username
+              <label className="text-white dark:text-gray-200" htmlFor="title">
+                title
               </label>
               <input
-                id="username"
+                id="title"
                 type="text"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
             </div>
 
             <div>
-              <label
-                className="text-white dark:text-gray-200"
-                htmlFor="emailAddress"
-              >
-                Email Address
+              <label className="text-white dark:text-gray-200" htmlFor="video">
+                Video Url
               </label>
               <input
-                id="emailAddress"
+                id="video"
                 type="email"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
@@ -43,49 +37,46 @@ const CreateExerciseScreen = (props: Props) => {
             <div>
               <label
                 className="text-white dark:text-gray-200"
-                htmlFor="password"
+                htmlFor="technique"
               >
-                Password
+                Technique
               </label>
               <input
-                id="password"
-                type="password"
+                id="technique"
+                type="text"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
             </div>
 
             <div>
-              <label
-                className="text-white dark:text-gray-200"
-                htmlFor="passwordConfirmation"
-              >
-                Password Confirmation
+              <label className="text-white dark:text-gray-200" htmlFor="tags">
+                Tags
               </label>
               <input
-                id="passwordConfirmation"
-                type="password"
+                id="tags"
+                type="text"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
             </div>
             <div>
               <label
                 className="text-white dark:text-gray-200"
-                htmlFor="passwordConfirmation"
+                htmlFor="muscles"
               >
-                Color
+                Muscles
               </label>
               <input
-                id="color"
-                type="color"
+                id="muscles"
+                type="text"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
             </div>
             <div>
               <label
                 className="text-white dark:text-gray-200"
-                htmlFor="passwordConfirmation"
+                htmlFor="category"
               >
-                Select
+                Select Category
               </label>
               <select className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
                 <option>Surabaya</option>
@@ -95,28 +86,35 @@ const CreateExerciseScreen = (props: Props) => {
               </select>
             </div>
             <div>
-              <label
-                className="text-white dark:text-gray-200"
-                htmlFor="passwordConfirmation"
-              >
-                Range
+              <label className="text-white dark:text-gray-200" htmlFor="reps">
+                Reps
               </label>
               <input
-                id="range"
-                type="range"
-                className="block w-full py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                id="muscles"
+                type="number"
+                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+              />
+            </div>
+            <div>
+              <label className="text-white dark:text-gray-200" htmlFor="sets">
+                Sets
+              </label>
+              <input
+                id="sets"
+                type="number"
+                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
             </div>
             <div>
               <label
                 className="text-white dark:text-gray-200"
-                htmlFor="passwordConfirmation"
+                htmlFor="duration"
               >
-                Date
+                Duration
               </label>
               <input
-                id="date"
-                type="date"
+                id="duration"
+                type="number"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
             </div>
@@ -125,7 +123,7 @@ const CreateExerciseScreen = (props: Props) => {
                 className="text-white dark:text-gray-200"
                 htmlFor="passwordConfirmation"
               >
-                Text Area
+                Description
               </label>
               <textarea
                 id="textarea"
@@ -134,7 +132,7 @@ const CreateExerciseScreen = (props: Props) => {
             </div>
             <div>
               <label className="block text-sm font-medium text-white">
-                Image
+                Images
               </label>
               <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                 <div className="space-y-1 text-center">
@@ -174,14 +172,17 @@ const CreateExerciseScreen = (props: Props) => {
           </div>
 
           <div className="flex justify-end mt-6">
-            <button className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">
+            <button
+              type="submit"
+              className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600"
+            >
               Save
             </button>
           </div>
         </form>
       </section>
 
-      <section className="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800 mt-20">
+      {/* <section className="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800 mt-20">
         <h2 className="text-lg font-semibold text-gray-700 capitalize dark:text-white">
           Account settings
         </h2>
@@ -251,7 +252,7 @@ const CreateExerciseScreen = (props: Props) => {
             </button>
           </div>
         </form>
-      </section>
+      </section> */}
     </div>
   )
 }
