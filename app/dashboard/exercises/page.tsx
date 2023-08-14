@@ -1,5 +1,4 @@
 'use client'
-
 import React, { SyntheticEvent, ComponentPropsWithRef, useState } from 'react'
 type Props = ComponentPropsWithRef<'input'>
 
@@ -51,6 +50,7 @@ const CreateExerciseScreen = (props: Props) => {
               <input
                 id="title"
                 type="text"
+                value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
@@ -63,6 +63,7 @@ const CreateExerciseScreen = (props: Props) => {
               <input
                 id="video"
                 type="email"
+                value={video}
                 onChange={(e) => setVideo(e.target.value)}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
@@ -78,6 +79,7 @@ const CreateExerciseScreen = (props: Props) => {
               <input
                 id="technique"
                 type="text"
+                value={technique}
                 onChange={(e) => setTechnique(e.target.value)}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
@@ -90,6 +92,7 @@ const CreateExerciseScreen = (props: Props) => {
               <input
                 id="tags"
                 type="text"
+                value={tags}
                 onChange={(e) => setTags(e.target.value)}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
@@ -104,6 +107,7 @@ const CreateExerciseScreen = (props: Props) => {
               <input
                 id="muscles"
                 type="text"
+                value={muscles}
                 onChange={(e) => setMuscles(e.target.value)}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
@@ -128,6 +132,7 @@ const CreateExerciseScreen = (props: Props) => {
               <input
                 id="Reps"
                 type="number"
+                value={reps}
                 onChange={(e) => setReps(e.target.value)}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
@@ -139,6 +144,7 @@ const CreateExerciseScreen = (props: Props) => {
               <input
                 id="sets"
                 type="number"
+                value={sets}
                 onChange={(e) => setSets(e.target.value)}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
@@ -153,6 +159,7 @@ const CreateExerciseScreen = (props: Props) => {
               <input
                 id="duration"
                 type="number"
+                value={duration}
                 onChange={(e) => setDuration(e.target.value)}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
@@ -166,6 +173,7 @@ const CreateExerciseScreen = (props: Props) => {
               </label>
               <textarea
                 id="textarea"
+                value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               ></textarea>
