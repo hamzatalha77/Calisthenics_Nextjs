@@ -38,10 +38,18 @@ const CreateExerciseScreen = (props: Props) => {
       })
     })
   }
-  const imageUpload = () => {
+  const imageUpload = async () => {
     const data = new FormData()
     data.append('file', images)
     data.append('upload_preset', 'caliupload')
+    data.append('cloud_name', 'dodxmvtfr')
+    const res = await fetch(
+      'https://api.cloudinary.com/v1_1/dodxmvtfr/images/upload',
+      {
+        method: 'POST',
+        body: data
+      }
+    )
   }
   return (
     <div>
