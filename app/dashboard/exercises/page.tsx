@@ -1,4 +1,5 @@
 'use client'
+import Image from 'next/image'
 import React, { SyntheticEvent, ComponentPropsWithRef, useState } from 'react'
 type Props = ComponentPropsWithRef<'input'>
 
@@ -18,25 +19,25 @@ const CreateExerciseScreen = (props: Props) => {
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault()
     imageUpload()
-    fetch('http://localhost:3000/api/exercises', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        title,
-        description,
-        images,
-        video,
-        tags,
-        muscles,
-        technique,
-        reps,
-        sets,
-        duration,
-        category
-      })
-    })
+    // fetch('http://localhost:3000/api/exercises', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify({
+    //     title,
+    //     description,
+    //     images,
+    //     video,
+    //     tags,
+    //     muscles,
+    //     technique,
+    //     reps,
+    //     sets,
+    //     duration,
+    //     category
+    //   })
+    // })
   }
   const imageUpload = async () => {
     const data = new FormData()
@@ -50,7 +51,11 @@ const CreateExerciseScreen = (props: Props) => {
         body: data
       }
     )
+    const res2 = await res.json()
+
+    console.log(res2)
   }
+
   return (
     <div>
       <h1 className="text-center text-6xl">Create Exercise</h1>
@@ -192,6 +197,7 @@ const CreateExerciseScreen = (props: Props) => {
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               ></textarea>
             </div>
+
             <div>
               <label className="block text-sm font-medium text-white">
                 Images
@@ -222,6 +228,8 @@ const CreateExerciseScreen = (props: Props) => {
                         id="file-upload"
                         name="file-upload"
                         type="file"
+                        accept="image/*"
+                        onChange={(e) => setImages(e.target.files[0])}
                         className="sr-only"
                       />
                     </label>
