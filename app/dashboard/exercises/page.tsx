@@ -5,7 +5,7 @@ type Props = ComponentPropsWithRef<'input'>
 const CreateExerciseScreen = (props: Props) => {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
-  const [images, setImages] = useState('')
+  const [images, setImages] = useState<File | null>(null)
   const [video, setVideo] = useState('')
   const [tags, setTags] = useState('')
   const [muscles, setMuscles] = useState('')
@@ -51,7 +51,6 @@ const CreateExerciseScreen = (props: Props) => {
       }
     )
     const res2 = await res.json()
-
     return res2.url
   }
 
