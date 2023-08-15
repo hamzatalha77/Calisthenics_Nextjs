@@ -1,5 +1,4 @@
 'use client'
-import Image from 'next/image'
 import React, { SyntheticEvent, ComponentPropsWithRef, useState } from 'react'
 type Props = ComponentPropsWithRef<'input'>
 
@@ -16,28 +15,28 @@ const CreateExerciseScreen = (props: Props) => {
   const [duration, setDuration] = useState('')
   const [category, setCategory] = useState('')
 
-  const handleSubmit = (e: SyntheticEvent) => {
+  const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault()
-    imageUpload()
-    // fetch('http://localhost:3000/api/exercises', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify({
-    //     title,
-    //     description,
-    //     images,
-    //     video,
-    //     tags,
-    //     muscles,
-    //     technique,
-    //     reps,
-    //     sets,
-    //     duration,
-    //     category
-    //   })
-    // })
+    const imagesUrl = await imageUpload()
+    fetch('http://localhost:3000/api/exercises', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        title,
+        description,
+        images: imagesUrl,
+        video,
+        tags,
+        muscles,
+        technique,
+        reps,
+        sets,
+        duration,
+        category
+      })
+    })
   }
   const imageUpload = async () => {
     const data = new FormData()
@@ -45,7 +44,7 @@ const CreateExerciseScreen = (props: Props) => {
     data.append('upload_preset', 'caliupload')
     data.append('cloud_name', 'dodxmvtfr')
     const res = await fetch(
-      'https://api.cloudinary.com/v1_1/dodxmvtfr/images/upload',
+      'https://api.cloudinary.com/v1_1/dodxmvtfr/image/upload',
       {
         method: 'POST',
         body: data
@@ -53,7 +52,7 @@ const CreateExerciseScreen = (props: Props) => {
     )
     const res2 = await res.json()
 
-    console.log(res2)
+    return res2.url
   }
 
   return (
@@ -81,7 +80,7 @@ const CreateExerciseScreen = (props: Props) => {
               </label>
               <input
                 id="video"
-                type="email"
+                type="text"
                 value={video}
                 onChange={(e) => setVideo(e.target.value)}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
