@@ -17,6 +17,7 @@ const CreateExerciseScreen = (props: Props) => {
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault()
+    imageUpload()
     fetch('http://localhost:3000/api/exercises', {
       method: 'POST',
       headers: {
@@ -36,6 +37,11 @@ const CreateExerciseScreen = (props: Props) => {
         category
       })
     })
+  }
+  const imageUpload = () => {
+    const data = new FormData()
+    data.append('file', images)
+    data.append('upload_preset', 'caliupload')
   }
   return (
     <div>
