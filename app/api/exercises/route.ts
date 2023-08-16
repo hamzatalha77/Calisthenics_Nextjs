@@ -3,10 +3,6 @@ import { createExercise, fetchExercises } from '../../lib/data'
 import slugify from 'slugify'
 import { ObjectId } from 'mongodb'
 
-type Data = {
-  name: string
-}
-
 export async function GET(req: Request, res: Response) {
   try {
     const exercisesData = await fetchExercises()
