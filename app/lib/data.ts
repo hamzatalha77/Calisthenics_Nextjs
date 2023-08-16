@@ -22,7 +22,6 @@ type Exercise = {
 const fetchExercises = async () => {
   const exerciseDocuments = await exercises.find().toArray()
   return exerciseDocuments
-  console.log(exerciseDocuments)
 }
 
 const createExercise = async (exercise: Exercise) => {

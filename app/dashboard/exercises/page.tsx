@@ -5,7 +5,7 @@ type Props = ComponentPropsWithRef<'input'>
 const CreateExerciseScreen = (props: Props) => {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
-  const [images, setImages] = useState<File | null>(null)
+  const [images, setImages] = useState<File[]>([])
   const [video, setVideo] = useState('')
   const [tags, setTags] = useState('')
   const [muscles, setMuscles] = useState('')
@@ -17,7 +17,7 @@ const CreateExerciseScreen = (props: Props) => {
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault()
-    const imagesUrl = await imageUpload()
+    const imagesUrls = await imageUpload()
     fetch('http://localhost:3000/api/exercises', {
       method: 'POST',
       headers: {
@@ -26,7 +26,7 @@ const CreateExerciseScreen = (props: Props) => {
       body: JSON.stringify({
         title,
         description,
-        images: imagesUrl,
+        images: imagesUrls,
         video,
         tags,
         muscles,
@@ -38,20 +38,29 @@ const CreateExerciseScreen = (props: Props) => {
       })
     })
   }
+
   const imageUpload = async () => {
-    const data = new FormData()
-    data.append('file', images)
-    data.append('upload_preset', 'caliupload')
-    data.append('cloud_name', 'dodxmvtfr')
-    const res = await fetch(
-      'https://api.cloudinary.com/v1_1/dodxmvtfr/image/upload',
-      {
-        method: 'POST',
-        body: data
-      }
-    )
-    const res2 = await res.json()
-    return res2.url
+    const imageUrls: string[] = []
+
+    for (const image of images) {
+      const data = new FormData()
+      data.append('file', image)
+      data.append('upload_preset', 'caliupload')
+      data.append('cloud_name', 'dodxmvtfr')
+
+      const res = await fetch(
+        'https://api.cloudinary.com/v1_1/dodxmvtfr/image/upload',
+        {
+          method: 'POST',
+          body: data
+        }
+      )
+
+      const res2 = await res.json()
+      imageUrls.push(res2.url)
+    }
+
+    return imageUrls
   }
 
   return (
@@ -227,7 +236,8 @@ const CreateExerciseScreen = (props: Props) => {
                         name="file-upload"
                         type="file"
                         accept="image/*"
-                        onChange={(e) => setImages(e.target.files[0])}
+                        multiple
+                        onChange={(e) => setImages([...e.target.files])}
                         className="sr-only"
                       />
                     </label>
