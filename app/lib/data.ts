@@ -30,6 +30,7 @@ const createExercise = async (exercise: Exercise) => {
   exercise.updatedAt = now
   await exercises.insertOne(exercise)
 }
+
 const updateExercise = async (
   exerciseId: string,
   updates: Partial<Exercise>
