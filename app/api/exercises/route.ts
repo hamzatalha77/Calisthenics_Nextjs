@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server'
-import { createExercise, fetchExercises, updateExercise } from '../../lib/data'
+import { fetchExercises, updateExercise } from '../../lib/types'
 import slugify from 'slugify'
 import { ObjectId } from 'mongodb'
+import { exercises } from '../../lib/db'
 
 export async function GET(req: Request, res: Response) {
   try {
@@ -51,8 +52,7 @@ export async function POST(req: Request, res: Response) {
       createdAt: now,
       updatedAt: now
     }
-
-    await createExercise(exercise)
+    await exercises.insertOne(exercise)
 
     return NextResponse.json({ message: 'OK', exercise }, { status: 201 })
   } catch (error) {

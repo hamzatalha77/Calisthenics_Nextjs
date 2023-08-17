@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb'
-import { exercises } from '../api/db'
+import { exercises } from './db'
 
 type Exercise = {
   _id: ObjectId
@@ -24,12 +24,12 @@ const fetchExercises = async () => {
   return exerciseDocuments
 }
 
-const createExercise = async (exercise: Exercise) => {
-  const now = new Date()
-  exercise.createdAt = now
-  exercise.updatedAt = now
-  await exercises.insertOne(exercise)
-}
+// const createExercise = async (exercise: Exercise) => {
+//   const now = new Date()
+//   exercise.createdAt = now
+//   exercise.updatedAt = now
+//   await exercises.insertOne(exercise)
+// }
 
 const updateExercise = async (
   exerciseId: string,
@@ -48,4 +48,4 @@ const updateExercise = async (
   await exercises.updateOne(filter, updateObj)
 }
 
-export { fetchExercises, createExercise, updateExercise }
+export { fetchExercises, updateExercise }
