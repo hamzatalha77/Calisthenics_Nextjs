@@ -30,5 +30,21 @@ const createExercise = async (exercise: Exercise) => {
   exercise.updatedAt = now
   await exercises.insertOne(exercise)
 }
+const updateExercise = async (
+  exerciseId: string,
+  updates: Partial<Exercise>
+) => {
+  const now = new Date()
+  const updateObj = {
+    $set: {
+      updatedAt: now,
+      ...updates
+    }
+  }
 
-export { fetchExercises, createExercise }
+  const filter = { _id: ObjectId.createFromHexString(exerciseId) }
+
+  await exercises.updateOne(filter, updateObj)
+}
+
+export { fetchExercises, createExercise, updateExercise }
