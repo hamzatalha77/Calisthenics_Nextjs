@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb'
-import { exercises } from '../api/db'
+import { exercises } from './db'
 
 type Exercise = {
   _id: ObjectId
