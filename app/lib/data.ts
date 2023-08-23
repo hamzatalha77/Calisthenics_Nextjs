@@ -30,11 +30,11 @@ const createExercise = async (exercise: Exercise) => {
   exercise.updatedAt = now
   await exercises.insertOne(exercise)
 }
-// const updateExercise = async (exercise: Exercise) => {
-//   const now = new Date()
-//   exercise.createdAt = now
-//   exercise.updatedAt = now
-//   await exercises.insertOne(exercise)
-// }
+const updateExercise = async (exercise: Exercise) => {
+  const now = new Date()
+  exercise.createdAt = now
+  exercise.updatedAt = now
+  await exercises.insertOne(exercise)
+}
 
-export { fetchExercises, createExercise }
+export { fetchExercises, createExercise, updateExercise }
