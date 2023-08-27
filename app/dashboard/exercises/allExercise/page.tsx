@@ -18,8 +18,13 @@ export default function ExercisesList() {
 
   useEffect(() => {
     async function fetchData() {
-      const exercisesData = await getExercises()
-      setExercises(exercisesData)
+      try {
+        const exercisesData = await getExercises()
+        console.log(exercisesData)
+        setExercises(exercisesData)
+      } catch (error) {
+        console.error('Error fetching exercises:', error)
+      }
     }
 
     fetchData()
@@ -58,7 +63,6 @@ export default function ExercisesList() {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
                   {exercises.length === 0 ? (
-                    // Loading state
                     <p>Loading...</p>
                   ) : (
                     exercises.map((exercise, index) => (
