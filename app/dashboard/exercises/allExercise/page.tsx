@@ -1,5 +1,4 @@
-'use client'
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 
 type Exercise = {
   _id: string
@@ -8,29 +7,13 @@ type Exercise = {
   description: string
 }
 
-const Exercises: React.FC = () => {
-  const [exercises, setExercises] = useState<Exercise[] | null>(null)
+async function getExercises() {
+  const res = await fetch('http://localhost:3000/api/exercises')
+  return res.json
+}
 
-  useEffect(() => {
-    const fetchExercises = async () => {
-      try {
-        const response = await fetch('http://localhost:3000/api/exercises')
-        const data = await response.json()
-        console.log('Fetched data:', data)
-        console.log('Data type:', typeof data)
-        setExercises(data)
-      } catch (error) {
-        console.error('Error fetching exercises:', error)
-      }
-    }
-
-    fetchExercises()
-  }, [])
-
-  if (exercises === null) {
-    // You can render a loading indicator here
-    return <div>Loading...</div>
-  }
+export default async function ExercisesList() {
+  const exercises: Exercise[] = await getExercises()
   return (
     <div className="max-w-2xl mx-auto">
       <div className="flex flex-col">
