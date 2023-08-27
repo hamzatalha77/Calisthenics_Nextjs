@@ -42,22 +42,25 @@ export default function ExercisesList() {
                       scope="col"
                       className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400"
                     >
-                      Product Name
+                      Exercise Title
                     </th>
                     <th
                       scope="col"
                       className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400"
                     >
-                      Category
+                      Exercise Video
                     </th>
                     <th
                       scope="col"
                       className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400"
                     >
-                      Price
+                      Exercise Description
                     </th>
                     <th scope="col" className="p-4">
                       <span className="sr-only">Edit</span>
+                    </th>
+                    <th scope="col" className="p-4">
+                      <span className="sr-only">Delete</span>
                     </th>
                   </tr>
                 </thead>
