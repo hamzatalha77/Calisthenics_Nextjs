@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 type Exercise = {
   _id: string
@@ -7,13 +7,22 @@ type Exercise = {
   description: string
 }
 
-async function getExercises() {
+async function getExercises(): Promise<Exercise[]> {
   const res = await fetch('http://localhost:3000/api/exercises')
-  return res.json
+  return res.json()
 }
 
-export default async function ExercisesList() {
-  const exercises: Exercise[] = await getExercises()
+export default function ExercisesList() {
+  const [exercises, setExercises] = useState<Exercise[]>([])
+
+  useEffect(() => {
+    async function fetchData() {
+      const exercisesData = await getExercises()
+      setExercises(exercisesData)
+    }
+
+    fetchData()
+  }, [])
   return (
     <div className="max-w-2xl mx-auto">
       <div className="flex flex-col">
