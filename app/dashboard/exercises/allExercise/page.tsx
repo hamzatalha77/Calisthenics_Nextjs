@@ -15,7 +15,6 @@ const getExercises = async (): Promise<Exercise[]> => {
 
 export default async function Exercises() {
   const exercises = await getExercises()
-  console.log(exercises)
   return (
     <div>
       <div className="max-w-2xl mx-auto">
