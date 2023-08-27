@@ -1,7 +1,21 @@
 'use client'
 import React from 'react'
 
-const ExercisesListScreen = () => {
+type Exercise = {
+  _id: string
+  title: string
+  video: string
+}
+
+const getExercises = async (): Promise<Exercise[]> => {
+  const data = await fetch('http://localhost:3000/api/exercises')
+  const exercises = await data.json()
+  return exercises
+}
+
+export default async function Exercises() {
+  const exercises = await getExercises()
+  console.log(exercises)
   return (
     <div>
       <div className="max-w-2xl mx-auto">
@@ -65,5 +79,3 @@ const ExercisesListScreen = () => {
     </div>
   )
 }
-
-export default ExercisesListScreen
