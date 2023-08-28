@@ -90,6 +90,14 @@ export default function ExercisesList() {
                             Edit
                           </a>
                         </td>
+                        <td className="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
+                          <a
+                            href="#"
+                            className="text-blue-600 dark:text-blue-500 hover:underline"
+                          >
+                            Delete
+                          </a>
+                        </td>
                       </tr>
                     ))
                   )}
