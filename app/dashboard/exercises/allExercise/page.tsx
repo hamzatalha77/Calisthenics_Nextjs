@@ -8,7 +8,6 @@ type Exercise = {
   video: string
   description: string
 }
-const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 // async function getExercises(): Promise<Exercise[]> {
 //   const res = await fetch('http://localhost:3000/api/exercises')
@@ -16,24 +15,17 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json())
 // }
 
 export default function ExercisesList() {
-  const { data, error } = useSWR('http://localhost:3000/api/exercises', fetcher)
-  if (error) return <div>Failed to load</div>
-  if (!data) return <div>Loading...</div>
-  // const [exercises, setExercises] = useState<Exercise[]>([])
-
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     try {
-  //       const exercisesData = await getExercises()
-  //       console.log(exercisesData)
-  //       setExercises(exercisesData)
-  //     } catch (error) {
-  //       console.error('Error fetching exercises:', error)
-  //     }
-  //   }
-
-  //   fetchData()
-  // }, [])
+  const [exercises, setExercises] = useState<Exercise[]>([])
+  const [loading, setLoading] = useState(false)
+  useEffect(() => {
+    setLoading(true)
+    fetch('http://localhost:3000/api/exercises')
+      .then((response) => response.json())
+      .then((json) => setExercises(json))
+      .finally(() => {
+        setLoading(false)
+      })
+  }, [])
   return (
     <div className="max-w-2xl mx-auto">
       <div className="flex flex-col">
