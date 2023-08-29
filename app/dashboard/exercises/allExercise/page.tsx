@@ -64,7 +64,7 @@ export default function ExercisesList() {
                 <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
                   {loading ? (
                     <div>Loading...</div>
-                  ) : (
+                  ) : exercises ? (
                     <>
                       {exercises.map((exercise) => (
                         <tr
@@ -99,6 +99,8 @@ export default function ExercisesList() {
                         </tr>
                       ))}
                     </>
+                  ) : (
+                    <div>No exercises available.</div>
                   )}
                 </tbody>
               </table>
