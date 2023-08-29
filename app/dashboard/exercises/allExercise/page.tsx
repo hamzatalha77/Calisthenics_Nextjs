@@ -62,52 +62,48 @@ export default function ExercisesList() {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-                  {loading ? (
-                    <div>Loading...</div>
-                  ) : exercises ? (
-                    <>
-                      {exercises.map((exercise) => (
-                        <tr
-                          className="hover:bg-gray-100 dark:hover:bg-gray-700"
-                          key={exercise._id}
-                        >
-                          <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {exercise.title}
-                          </td>
-                          <td className="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap dark:text-white">
-                            {exercise.video}
-                          </td>
-                          <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {exercise.description}
-                          </td>
-                          <td className="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
-                            <a
-                              href="#"
-                              className="text-blue-600 dark:text-blue-500 hover:underline"
-                            >
-                              Edit
-                            </a>
-                          </td>
-                          <td className="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
-                            <a
-                              href="#"
-                              className="text-blue-600 dark:text-blue-500 hover:underline"
-                            >
-                              Delete
-                            </a>
-                          </td>
-                        </tr>
-                      ))}
-                    </>
-                  ) : (
-                    <div>No exercises available.</div>
-                  )}
+                  <>
+                    {exercises.map((exercise) => (
+                      <tr
+                        className="hover:bg-gray-100 dark:hover:bg-gray-700"
+                        key={exercise._id}
+                      >
+                        <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                          {exercise.title}
+                        </td>
+                        <td className="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap dark:text-white">
+                          {exercise.video}
+                        </td>
+                        <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                          {exercise.description}
+                        </td>
+                        <td className="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
+                          <a
+                            href="#"
+                            className="text-blue-600 dark:text-blue-500 hover:underline"
+                          >
+                            Edit
+                          </a>
+                        </td>
+                        <td className="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
+                          <a
+                            href="#"
+                            className="text-blue-600 dark:text-blue-500 hover:underline"
+                          >
+                            Delete
+                          </a>
+                        </td>
+                      </tr>
+                    ))}
+                  </>
                 </tbody>
               </table>
             </div>
           </div>
         </div>
       </div>
+      {loading && <div>Loading...</div>}
+      {!loading && exercises.length === 0 && <div>No exercises available.</div>}
     </div>
   )
 }
