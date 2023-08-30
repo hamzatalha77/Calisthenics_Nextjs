@@ -9,10 +9,10 @@ type Exercise = {
   description: string
 }
 
-// async function getExercises(): Promise<Exercise[]> {
-//   const res = await fetch('http://localhost:3000/api/exercises')
-//   return res.json()
-// }
+async function getExercises(): Promise<Exercise[]> {
+  const res = await fetch('http://localhost:3000/api/exercises')
+  return res.json()
+}
 
 export default function ExercisesList() {
   const [exercises, setExercises] = useState<Exercise[]>([])
