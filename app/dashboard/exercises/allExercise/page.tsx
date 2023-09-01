@@ -16,6 +16,7 @@ const getExercises = async () => {
     if (!res.ok) {
       throw new Error('failed to fetch your data')
     }
+    return res.json()
   } catch (error) {
     console.log('Error loading Data', error)
   }
