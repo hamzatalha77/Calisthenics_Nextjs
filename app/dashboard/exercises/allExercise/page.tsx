@@ -8,6 +8,14 @@ type Exercise = {
   description: string
 }
 
+const getExercises = async () => {
+  try {
+    const res = await fetch('http://localhost:3000/api/exercises', {
+      cache: 'no-store'
+    })
+  } catch (error) {}
+}
+
 export default function ExercisesList() {
   const [exercises, setExercises] = useState<Exercise[]>([])
   const [loading, setLoading] = useState(false)
