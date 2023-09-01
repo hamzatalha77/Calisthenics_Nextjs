@@ -21,18 +21,8 @@ const getExercises = async () => {
   }
 }
 
-export default function ExercisesList() {
-  const [exercises, setExercises] = useState<Exercise[]>([])
-  const [loading, setLoading] = useState(false)
-  useEffect(() => {
-    setLoading(true)
-    fetch('http://localhost:3000/api/exercises')
-      .then((response) => response.json())
-      .then((json) => setExercises(json))
-      .finally(() => {
-        setLoading(false)
-      })
-  }, [])
+export default async function ExercisesList() {
+  const { exercises } = await getExercises()
   return (
     <div className="max-w-2xl mx-auto">
       <div className="flex flex-col">
@@ -109,8 +99,6 @@ export default function ExercisesList() {
           </div>
         </div>
       </div>
-      {loading && <div>Loading...</div>}
-      {!loading && exercises.length === 0 && <div>No exercises available.</div>}
     </div>
   )
 }
