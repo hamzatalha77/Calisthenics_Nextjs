@@ -1,17 +1,11 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import useSWR from 'swr'
 
 type Exercise = {
   _id: string
   title: string
   video: string
   description: string
-}
-
-async function getExercises(): Promise<Exercise[]> {
-  const res = await fetch('http://localhost:3000/api/exercises')
-  return res.json()
 }
 
 export default function ExercisesList() {
