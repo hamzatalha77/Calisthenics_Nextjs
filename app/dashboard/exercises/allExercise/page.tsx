@@ -13,7 +13,12 @@ const getExercises = async () => {
     const res = await fetch('http://localhost:3000/api/exercises', {
       cache: 'no-store'
     })
-  } catch (error) {}
+    if (!res.ok) {
+      throw new Error('failed to fetch your data')
+    }
+  } catch (error) {
+    console.log('Error loading Data', error)
+  }
 }
 
 export default function ExercisesList() {
