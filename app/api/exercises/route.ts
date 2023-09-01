@@ -66,23 +66,21 @@ export async function DELETE(
 ) {
   try {
     const id = params.id
-    await exercises.exercise.delete({
-      where: { id }
-    })
+    const result = await exercises.deleteOne({ _id: new ObjectId(id) })
 
-    return new NextResponse(null, { status: 204 })
-  } catch (error: any) {
-    if (error.code === 'P2025') {
+    if (result.deletedCount === 1) {
+      return new NextResponse(null, { status: 204 })
+    } else {
       let error_response = {
         status: 'fail',
-        message: 'No Feedback with the Provided ID Found'
+        message: 'No document with the provided ID found'
       }
       return new NextResponse(JSON.stringify(error_response), {
         status: 404,
         headers: { 'Content-Type': 'application/json' }
       })
     }
-
+  } catch (error: any) {
     let error_response = {
       status: 'error',
       message: error.message
