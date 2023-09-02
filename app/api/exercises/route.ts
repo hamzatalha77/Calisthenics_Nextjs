@@ -62,10 +62,10 @@ export async function POST(req: Request, res: Response) {
 }
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { _id: string } }
 ) {
   try {
-    const id = params.id
+    const id = params._id
     const result = await exercises.deleteOne({ _id: new ObjectId(id) })
 
     if (result.deletedCount === 1) {
