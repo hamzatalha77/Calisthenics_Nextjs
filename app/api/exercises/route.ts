@@ -60,6 +60,7 @@ export async function POST(req: Request, res: Response) {
     return NextResponse.json({ message: 'Error', error }, { status: 500 })
   }
 }
+
 export async function DELETE(
   request: Request,
   { params }: { params: { id: string } }
