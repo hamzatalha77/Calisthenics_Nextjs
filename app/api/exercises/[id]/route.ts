@@ -1,4 +1,5 @@
 import { exercises } from '../../../lib/db'
+import Exercises from '../../../models/Exercises'
 
 export async function PUT(req: Request, res: Response, { params }) {
   const { id } = params
@@ -8,5 +9,5 @@ export async function PUT(req: Request, res: Response, { params }) {
 export async function GET(req: Request, { params }) {
   const { id } = params
 
-  await exercises.insertOne(exercise)
+  await exercises.findOne({ _id: id })
 }
