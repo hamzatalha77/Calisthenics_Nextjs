@@ -1,3 +1,4 @@
+import { NextResponse } from 'next/server'
 import { exercises } from '../../../lib/db'
 import Exercises from '../../../models/Exercises'
 
@@ -10,4 +11,5 @@ export async function GET(req: Request, { params }) {
   const { id } = params
 
   await exercises.findOne({ _id: id })
+  return NextResponse.json({ exercises }, { status: 200 })
 }
