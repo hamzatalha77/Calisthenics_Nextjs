@@ -1,12 +1,6 @@
 'use client'
-import React from 'react'
-
-type Exercise = {
-  _id: string
-  title: string
-  video: string
-  description: string
-}
+import React, { useEffect, useState } from 'react'
+import { Exercise } from '../../../types/types'
 
 const getExercises = async () => {
   try {
@@ -19,11 +13,25 @@ const getExercises = async () => {
     return res.json()
   } catch (error) {
     console.log('Error loading Data', error)
+    throw error
   }
 }
 
-export default async function ExercisesList() {
-  const { exercises } = await getExercises()
+export default function ExercisesList() {
+  const [exercises, setExercises] = useState<Exercise[]>([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { exercises } = await getExercises()
+        setExercises(exercises)
+      } catch (error) {
+        console.error('Error loading Data', error)
+      }
+    }
+    fetchData()
+  }, [])
+
   return (
     <div className="max-w-2xl mx-auto">
       <div className="flex flex-col">
@@ -63,7 +71,7 @@ export default async function ExercisesList() {
                   {exercises.map((exercise) => (
                     <tr
                       className="hover:bg-gray-100 dark:hover:bg-gray-700"
-                      key={exercise._id}
+                      key={exercise._id.toString()}
                     >
                       <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {exercise.title}

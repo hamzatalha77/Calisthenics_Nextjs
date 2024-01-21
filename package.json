@@ -9,19 +9,24 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@iconify/react": "^4.1.1",
     "axios": "^1.4.0",
     "cloudinary": "^1.40.0",
+    "clsx": "^2.1.0",
     "cors": "^2.8.5",
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.13",
     "formidable": "^3.5.0",
+    "framer-motion": "^10.18.0",
     "mongodb": "^5.7.0",
     "mongoose": "^7.5.0",
     "next": "13.4.13",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-toastify": "^10.0.3",
     "slugify": "^1.6.6",
     "swr": "^2.2.2",
+    "tailwind-merge": "^2.2.0",
     "touch-cli": "^0.0.1"
   },
   "devDependencies": {

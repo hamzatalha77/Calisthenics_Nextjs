@@ -1,5 +1,7 @@
 'use client'
 import React, { SyntheticEvent, ComponentPropsWithRef, useState } from 'react'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 type Props = ComponentPropsWithRef<'input'>
 
 const CreateExerciseScreen = (props: Props) => {
@@ -17,26 +19,45 @@ const CreateExerciseScreen = (props: Props) => {
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault()
-    const imagesUrls = await imageUpload()
-    fetch('http://localhost:3000/api/exercises', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        title,
-        description,
-        images: imagesUrls,
-        video,
-        tags,
-        muscles,
-        technique,
-        reps,
-        sets,
-        duration,
-        category
+    try {
+      const imagesUrls = await imageUpload()
+      fetch('http://localhost:3000/api/exercises', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          title,
+          description,
+          images: imagesUrls,
+          video,
+          tags,
+          muscles,
+          technique,
+          reps,
+          sets,
+          duration,
+          category
+        })
       })
-    })
+      toast.success('Exercise added successfully!', {
+        position: 'top-right',
+        autoClose: 3000, // Auto close the toast after 3 seconds
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true
+      })
+    } catch (error) {
+      toast.error('Failed to add exercise. Please try again.', {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true
+      })
+    }
   }
 
   const imageUpload = async () => {
@@ -259,6 +280,7 @@ const CreateExerciseScreen = (props: Props) => {
           </div>
         </form>
       </section>
+      <ToastContainer />
     </div>
   )
 }
