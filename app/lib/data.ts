@@ -1,4 +1,3 @@
-import { ObjectId } from 'mongodb'
 import { exercises } from './db'
 import { Exercise } from '../types/types'
 
