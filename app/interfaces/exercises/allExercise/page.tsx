@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { Exercise } from '../../../types/types'
+import { Exercise } from '../../../types'
 
 const getExercises = async () => {
   try {

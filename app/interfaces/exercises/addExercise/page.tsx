@@ -2,6 +2,7 @@
 import React, { SyntheticEvent, ComponentPropsWithRef, useState } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+
 type Props = ComponentPropsWithRef<'input'>
 
 const CreateExerciseScreen = (props: Props) => {
@@ -9,13 +10,12 @@ const CreateExerciseScreen = (props: Props) => {
   const [description, setDescription] = useState('')
   const [images, setImages] = useState<File[]>([])
   const [video, setVideo] = useState('')
-  const [tags, setTags] = useState('')
-  const [muscles, setMuscles] = useState('')
+  const [tags, setTags] = useState<string[]>([])
+  const [muscles, setMuscles] = useState<string[]>([])
   const [technique, setTechnique] = useState('')
   const [reps, setReps] = useState('')
   const [sets, setSets] = useState('')
   const [duration, setDuration] = useState('')
-  const [category, setCategory] = useState('')
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault()
@@ -36,13 +36,12 @@ const CreateExerciseScreen = (props: Props) => {
           technique,
           reps,
           sets,
-          duration,
-          category
+          duration
         })
       })
       toast.success('Exercise added successfully!', {
         position: 'top-right',
-        autoClose: 3000, // Auto close the toast after 3 seconds
+        autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -139,8 +138,8 @@ const CreateExerciseScreen = (props: Props) => {
               <input
                 id="tags"
                 type="text"
-                value={tags}
-                onChange={(e) => setTags(e.target.value)}
+                value={tags.join(',')}
+                onChange={(e) => setTags(e.target.value.split(','))}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
             </div>
@@ -154,23 +153,10 @@ const CreateExerciseScreen = (props: Props) => {
               <input
                 id="muscles"
                 type="text"
-                value={muscles}
-                onChange={(e) => setMuscles(e.target.value)}
+                value={muscles.join(',')}
+                onChange={(e) => setMuscles(e.target.value.split(','))}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
-            </div>
-            <div>
-              <label
-                className="text-white dark:text-gray-200"
-                htmlFor="category"
-              >
-                Select Category
-              </label>
-              <select className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
-                <option>Surabaya</option>
-                <option>Jakarta</option>
-                <option>Bandung</option>
-              </select>
             </div>
             <div>
               <label className="text-white dark:text-gray-200" htmlFor="reps">

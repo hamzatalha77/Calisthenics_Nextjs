@@ -1,5 +1,5 @@
+import { Exercise } from '../types'
 import { exercises } from './db'
-import { Exercise } from '../types/types'
 
 const fetchExercises = async () => {
   const exerciseDocuments = await exercises.find().toArray()

@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation'
 
 import { Icon } from '@iconify/react'
 import { SIDENAV_ITEMS } from '../constants'
-import { SideNavItem } from '../types/types'
+import { SideNavItem } from '../types'
 
 const SideNav = () => {
   return (
