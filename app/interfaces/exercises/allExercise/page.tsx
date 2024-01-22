@@ -19,7 +19,16 @@ const getExercises = async () => {
 
 export default function ExercisesList() {
   const [exercises, setExercises] = useState<Exercise[]>([])
-
+  const [isDeleting, setIsDeleting] = useState(false)
+  const handleDelete = async (id: any) => {
+    try {
+      await fetch(`/api/exercises/${id}`, {
+        method: 'DELETE'
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -92,7 +101,7 @@ export default function ExercisesList() {
                       </td>
                       <td className="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
                         <a
-                          href="#"
+                          onClick={() => handleDelete(exercise._id)}
                           className="text-blue-600 dark:text-blue-500 hover:underline"
                         >
                           Delete

@@ -7,6 +7,11 @@ const ExercisesSchema = new Schema(
       unique: true,
       required: true
     },
+    slug: {
+      type: String,
+      unique: true,
+      required: true
+    },
     description: {
       type: String,
       required: true
@@ -48,7 +53,7 @@ const ExercisesSchema = new Schema(
   { timestamps: true }
 )
 
-const Exercises =
+const ExercisesModel =
   mongoose.models.Exercises || mongoose.model('Exercises', ExercisesSchema)
 
-export default Exercises
+export default ExercisesModel
