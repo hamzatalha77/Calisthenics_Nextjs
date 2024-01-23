@@ -25,6 +25,7 @@ export default function ExercisesList() {
       await fetch(`/api/exercises/${id}`, {
         method: 'DELETE'
       })
+      setIsDeleting(true)
     } catch (error) {
       console.log(error)
     }
