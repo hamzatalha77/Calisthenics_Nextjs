@@ -1,4 +1,5 @@
 'use client'
+import { useRouter } from 'next/navigation'
 import React, { SyntheticEvent, ComponentPropsWithRef, useState } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -16,7 +17,7 @@ const CreateExerciseScreen = (props: Props) => {
   const [reps, setReps] = useState('')
   const [sets, setSets] = useState('')
   const [duration, setDuration] = useState('')
-
+  const router = useRouter()
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault()
     try {
@@ -47,6 +48,7 @@ const CreateExerciseScreen = (props: Props) => {
         pauseOnHover: true,
         draggable: true
       })
+      router.push('/interfaces/exercises/allExercise')
     } catch (error) {
       toast.error('Failed to add exercise. Please try again.', {
         position: 'top-right',

@@ -1,6 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import { Exercise } from '../../../types'
+import { useRouter } from 'next/navigation'
 
 const getExercises = async () => {
   try {
@@ -20,16 +21,23 @@ const getExercises = async () => {
 export default function ExercisesList() {
   const [exercises, setExercises] = useState<Exercise[]>([])
   const [isDeleting, setIsDeleting] = useState(false)
+  const router = useRouter()
   const handleDelete = async (id: any) => {
+    setIsDeleting(true)
     try {
       await fetch(`/api/exercises/${id}`, {
         method: 'DELETE'
       })
-      setIsDeleting(true)
     } catch (error) {
-      console.log(error)
+      console.error(error)
+    } finally {
+      setIsDeleting(false)
+      setTimeout(() => {
+        router.refresh()
+      }, 100) // Adjust the delay as needed
     }
   }
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -101,12 +109,18 @@ export default function ExercisesList() {
                         </a>
                       </td>
                       <td className="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
-                        <a
-                          onClick={() => handleDelete(exercise._id)}
-                          className="text-blue-600 dark:text-blue-500 hover:underline"
-                        >
-                          Delete
-                        </a>
+                        {!isDeleting ? (
+                          <a
+                            onClick={() => handleDelete(exercise._id)}
+                            className="text-blue-600 dark:text-blue-500 hover:underline cursor-pointer"
+                          >
+                            Delete
+                          </a>
+                        ) : (
+                          <a className="text-blue-600 dark:text-blue-500 hover:underline">
+                            Deleting...
+                          </a>
+                        )}
                       </td>
                     </tr>
                   ))}
