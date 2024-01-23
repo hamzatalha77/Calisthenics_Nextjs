@@ -6,8 +6,8 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 import { Icon } from '@iconify/react'
-import { SIDENAV_ITEMS } from '../constants'
-import { SideNavItem } from '../types'
+import { SIDENAV_ITEMS } from '../../constants'
+import { SideNavItem } from '../../types'
 
 const SideNav = () => {
   return (

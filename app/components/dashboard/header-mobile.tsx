@@ -7,8 +7,8 @@ import { usePathname } from 'next/navigation'
 
 import { Icon } from '@iconify/react'
 import { motion, useCycle } from 'framer-motion'
-import { SideNavItem } from '../types'
-import { SIDENAV_ITEMS } from '../constants'
+import { SideNavItem } from '../../types'
+import { SIDENAV_ITEMS } from '../../constants'
 
 type MenuItemWithSubMenuProps = {
   item: SideNavItem

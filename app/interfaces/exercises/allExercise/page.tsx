@@ -34,7 +34,7 @@ export default function ExercisesList() {
       setIsDeleting(false)
       setTimeout(() => {
         router.refresh()
-      }, 100) // Adjust the delay as needed
+      }, 100)
     }
   }
 

@@ -1,8 +1,8 @@
-import Header from './components/header'
-import HeaderMobile from './components/header-mobile'
-import MarginWidthWrapper from './components/margin-width-wrapper'
-import PageWrapper from './components/page-wrapper'
-import SideNav from './components/side-nav'
+import Header from './components/dashboard/header'
+import HeaderMobile from './components/dashboard/header-mobile'
+import MarginWidthWrapper from './components/dashboard/margin-width-wrapper'
+import PageWrapper from './components/dashboard/page-wrapper'
+import SideNav from './components/dashboard/side-nav'
 import './styles/globals.css'
 import { Inter } from 'next/font/google'
 

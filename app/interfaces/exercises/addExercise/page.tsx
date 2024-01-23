@@ -1,4 +1,5 @@
 'use client'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React, { SyntheticEvent, ComponentPropsWithRef, useState } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
@@ -17,7 +18,9 @@ const CreateExerciseScreen = (props: Props) => {
   const [reps, setReps] = useState('')
   const [sets, setSets] = useState('')
   const [duration, setDuration] = useState('')
+  const [imagePreviews, setImagePreviews] = useState<string[]>([])
   const router = useRouter()
+
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault()
     try {
@@ -83,6 +86,17 @@ const CreateExerciseScreen = (props: Props) => {
     }
 
     return imageUrls
+  }
+  // Function to handle image selection and preview
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedImages = e.target.files
+    setImages([...selectedImages])
+
+    // Generate image previews
+    const previews = Array.from(selectedImages).map((image) =>
+      URL.createObjectURL(image)
+    )
+    setImagePreviews(previews)
   }
 
   return (
@@ -219,6 +233,16 @@ const CreateExerciseScreen = (props: Props) => {
                 Images
               </label>
               <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                {imagePreviews.map((preview, index) => (
+                  <Image
+                    width={60}
+                    height={60}
+                    key={index}
+                    src={preview}
+                    alt={`Preview ${index + 1}`}
+                    className="w-16 h-16 object-cover mr-2"
+                  />
+                ))}
                 <div className="space-y-1 text-center">
                   <svg
                     className="mx-auto h-12 w-12 text-white"
@@ -246,7 +270,7 @@ const CreateExerciseScreen = (props: Props) => {
                         type="file"
                         accept="image/*"
                         multiple
-                        onChange={(e) => setImages([...e.target.files])}
+                        onChange={handleImageChange}
                         className="sr-only"
                       />
                     </label>
