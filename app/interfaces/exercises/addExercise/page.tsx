@@ -51,7 +51,9 @@ const CreateExerciseScreen = (props: Props) => {
         pauseOnHover: true,
         draggable: true
       })
-      router.push('/interfaces/exercises/allExercise')
+      setTimeout(() => {
+        router.push('/interfaces/exercises/allExercise')
+      }, 1000) // Adjust the delay as needed
     } catch (error) {
       toast.error('Failed to add exercise. Please try again.', {
         position: 'top-right',
@@ -87,12 +89,11 @@ const CreateExerciseScreen = (props: Props) => {
 
     return imageUrls
   }
-  // Function to handle image selection and preview
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedImages = e.target.files
     setImages([...selectedImages])
 
-    // Generate image previews
     const previews = Array.from(selectedImages).map((image) =>
       URL.createObjectURL(image)
     )

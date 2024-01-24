@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Exercise } from '../../../types'
 import { useRouter } from 'next/navigation'
 
@@ -22,6 +22,20 @@ export default function ExercisesList() {
   const [exercises, setExercises] = useState<Exercise[]>([])
   const [isDeleting, setIsDeleting] = useState(false)
   const router = useRouter()
+
+  const fetchData = async () => {
+    try {
+      const { exercises } = await getExercises()
+      setExercises(exercises)
+    } catch (error) {
+      console.error('Error loading Data', error)
+    }
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [router.query])
+
   const handleDelete = async (id: any) => {
     setIsDeleting(true)
     try {
@@ -32,23 +46,9 @@ export default function ExercisesList() {
       console.error(error)
     } finally {
       setIsDeleting(false)
-      setTimeout(() => {
-        router.refresh()
-      }, 100)
+      fetchData()
     }
   }
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const { exercises } = await getExercises()
-        setExercises(exercises)
-      } catch (error) {
-        console.error('Error loading Data', error)
-      }
-    }
-    fetchData()
-  }, [])
 
   return (
     <div className="max-w-2xl mx-auto">
