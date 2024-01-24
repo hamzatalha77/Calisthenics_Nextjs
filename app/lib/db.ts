@@ -32,7 +32,6 @@ const disconnectFromMongo = async () => {
   }
 }
 
-// Ensure the connection is established when the module is loaded
 connectToMongo()
 
 const db = client.db()
