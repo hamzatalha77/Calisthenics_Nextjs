@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { Exercise } from '../../../types'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 const getExercises = async () => {
   try {
@@ -48,6 +49,9 @@ export default function ExercisesList() {
       setIsDeleting(false)
       fetchData()
     }
+  }
+  const handleEdit = async (exercise: Exercise) => {
+    router.push(`/interfaces/exercises/editExercise?id=${exercise._id}`)
   }
 
   return (
@@ -101,21 +105,21 @@ export default function ExercisesList() {
                         {exercise.description}
                       </td>
                       <td className="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
-                        <a
-                          href="#"
+                        <button
+                          onClick={() => handleEdit(exercise)}
                           className="text-blue-600 dark:text-blue-500 hover:underline"
                         >
                           Edit
-                        </a>
+                        </button>
                       </td>
                       <td className="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
                         {!isDeleting ? (
-                          <a
+                          <button
                             onClick={() => handleDelete(exercise._id)}
-                            className="text-blue-600 dark:text-blue-500 hover:underline cursor-pointer"
+                            className="text-blue-600 dark:text-blue-500 hover:underline "
                           >
                             Delete
-                          </a>
+                          </button>
                         ) : (
                           <a className="text-blue-600 dark:text-blue-500 hover:underline">
                             Deleting...

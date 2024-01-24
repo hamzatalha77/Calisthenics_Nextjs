@@ -1,13 +1,11 @@
 'use client'
+import { useRouter, useSearchParams } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
+import { Exercise } from '../../../types/index'
+import { ToastContainer } from 'react-toastify'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
-import React, { SyntheticEvent, ComponentPropsWithRef, useState } from 'react'
-import { toast, ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 
-type Props = ComponentPropsWithRef<'input'>
-
-const EditExerciseScreen = (props: Props) => {
+const EditExerciseScreen = () => {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [images, setImages] = useState<File[]>([])
@@ -18,92 +16,30 @@ const EditExerciseScreen = (props: Props) => {
   const [reps, setReps] = useState('')
   const [sets, setSets] = useState('')
   const [duration, setDuration] = useState('')
-  const [imagePreviews, setImagePreviews] = useState<string[]>([])
-  const [isUpdating, setIsUpdating] = useState(false)
+  const [exercise, setExercise] = useState<Exercise | undefined>(undefined)
+
   const router = useRouter()
 
-  const handleSubmit = async (e: SyntheticEvent) => {
-    e.preventDefault()
-    try {
-      const imagesUrls = await imageUpload()
-      fetch('http://localhost:3000/api/exercises', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          title,
-          description,
-          images: imagesUrls,
-          video,
-          tags,
-          muscles,
-          technique,
-          reps,
-          sets,
-          duration
-        })
-      })
-      toast.success('Exercise added successfully!', {
-        position: 'top-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true
-      })
-      setTimeout(() => {
-        router.push('/interfaces/exercises/allExercise')
-      }, 1000)
-    } catch (error) {
-      toast.error('Failed to add exercise. Please try again.', {
-        position: 'top-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true
-      })
+  const searchParams = useSearchParams()
+  const exerciseId = searchParams.get('id')
+
+  useEffect(() => {
+    const getExercise = async () => {
+      const response = await fetch(`/api/exercises/${exerciseId}`)
+      const data = await response.json()
+      setExercise(data)
+      console.log(data)
     }
-  }
-
-  const imageUpload = async () => {
-    const imageUrls: string[] = []
-
-    for (const image of images) {
-      const data = new FormData()
-      data.append('file', image)
-      data.append('upload_preset', 'caliupload')
-      data.append('cloud_name', 'dodxmvtfr')
-
-      const res = await fetch(
-        'https://api.cloudinary.com/v1_1/dodxmvtfr/image/upload',
-        {
-          method: 'POST',
-          body: data
-        }
-      )
-
-      const res2 = await res.json()
-      imageUrls.push(res2.url)
+    if (exerciseId) {
+      getExercise()
     }
+  }, [exerciseId])
 
-    return imageUrls
-  }
-
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedImages = e.target.files
-    setImages([...selectedImages])
-
-    const previews = Array.from(selectedImages).map((image) =>
-      URL.createObjectURL(image)
-    )
-    setImagePreviews(previews)
-  }
+  const handleSubmit = () => {}
 
   return (
     <div>
-      <h1 className="text-center text-6xl">Create Exercise</h1>
+      <h1 className="text-center text-6xl">Edit Exercise</h1>
       <section className="max-w-4xl p-6 mx-auto bg-indigo-600 rounded-md shadow-md dark:bg-gray-800 mt-20">
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
@@ -235,7 +171,7 @@ const EditExerciseScreen = (props: Props) => {
                 Images
               </label>
               <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                {imagePreviews.map((preview, index) => (
+                {/* {imagePreviews.map((preview, index) => (
                   <Image
                     width={60}
                     height={60}
@@ -244,7 +180,7 @@ const EditExerciseScreen = (props: Props) => {
                     alt={`Preview ${index + 1}`}
                     className="w-16 h-16 object-cover mr-2"
                   />
-                ))}
+                ))} */}
                 <div className="space-y-1 text-center">
                   <svg
                     className="mx-auto h-12 w-12 text-white"
@@ -272,7 +208,7 @@ const EditExerciseScreen = (props: Props) => {
                         type="file"
                         accept="image/*"
                         multiple
-                        onChange={handleImageChange}
+                        // onChange={handleImageChange}
                         className="sr-only"
                       />
                     </label>
