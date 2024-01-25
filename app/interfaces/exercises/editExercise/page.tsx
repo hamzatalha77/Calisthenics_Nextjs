@@ -17,7 +17,7 @@ const EditExerciseScreen = () => {
   const [sets, setSets] = useState('')
   const [duration, setDuration] = useState('')
   const [exercise, setExercise] = useState<Exercise | undefined>(undefined)
-
+  const [imagePreviews, setImagePreviews] = useState<string[]>([])
   const router = useRouter()
 
   const searchParams = useSearchParams()
@@ -25,17 +25,98 @@ const EditExerciseScreen = () => {
 
   useEffect(() => {
     const getExercise = async () => {
-      const response = await fetch(`/api/exercises/${exerciseId}`)
-      const data = await response.json()
-      setExercise(data)
-      console.log(data)
+      try {
+        const response = await fetch(`/api/exercises/${exerciseId}`)
+        if (!response.ok) {
+          throw new Error('Failed to fetch exercise data')
+        }
+        const data = await response.json()
+        setTitle(data.title)
+        setDescription(data.description)
+        setVideo(data.video)
+        setImages(data.images)
+        setTags(data.tags)
+        setMuscles(data.muscles)
+        setTechnique(data.technique)
+        setReps(data.reps)
+        setSets(data.sets)
+        setDuration(data.duration)
+        setExercise(data)
+        console.log(data)
+      } catch (error) {
+        console.log(error)
+      }
     }
+
     if (exerciseId) {
       getExercise()
     }
   }, [exerciseId])
 
-  const handleSubmit = () => {}
+  const handleSubmit = async (e: any) => {
+    e.preventDefault()
+    try {
+      const imagesUrls = await imageUpload()
+      const res = await fetch(`/api/exercises/${exerciseId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          title,
+          description,
+          images: imagesUrls,
+          video,
+          tags,
+          muscles,
+          technique,
+          reps,
+          sets,
+          duration
+        })
+      })
+      const data = await res.json()
+      if (res.ok) {
+        alert('succeed!!')
+        router.push('/interfaces/exercises/allExercise')
+      }
+      console.log(data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const imageUpload = async () => {
+    const imageUrls: string[] = []
+
+    for (const image of images) {
+      const data = new FormData()
+      data.append('file', image)
+      data.append('upload_preset', 'caliupload')
+      data.append('cloud_name', 'dodxmvtfr')
+
+      const res = await fetch(
+        'https://api.cloudinary.com/v1_1/dodxmvtfr/image/upload',
+        {
+          method: 'POST',
+          body: data
+        }
+      )
+
+      const res2 = await res.json()
+      imageUrls.push(res2.url)
+    }
+
+    return imageUrls
+  }
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedImages = e.target.files
+    setImages([...selectedImages])
+
+    const previews = Array.from(selectedImages).map((image) =>
+      URL.createObjectURL(image)
+    )
+    setImagePreviews(previews)
+  }
 
   return (
     <div>
@@ -171,13 +252,23 @@ const EditExerciseScreen = () => {
                 Images
               </label>
               <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                {/* {imagePreviews.map((preview, index) => (
+                {imagePreviews.map((preview, index) => (
                   <Image
+                    key={index}
                     width={60}
                     height={60}
-                    key={index}
                     src={preview}
                     alt={`Preview ${index + 1}`}
+                    className="w-16 h-16 object-cover mr-2"
+                  />
+                ))}
+                {/* {images.map((image, index) => (
+                  <Image
+                    key={index}
+                    width={60}
+                    height={60}
+                    src={URL.createObjectURL(image)}
+                    alt={`Image ${index + 1}`}
                     className="w-16 h-16 object-cover mr-2"
                   />
                 ))} */}
@@ -208,7 +299,7 @@ const EditExerciseScreen = () => {
                         type="file"
                         accept="image/*"
                         multiple
-                        // onChange={handleImageChange}
+                        onChange={handleImageChange}
                         className="sr-only"
                       />
                     </label>
