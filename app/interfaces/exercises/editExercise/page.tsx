@@ -31,17 +31,19 @@ const EditExerciseScreen = () => {
           throw new Error('Failed to fetch exercise data')
         }
         const data = await response.json()
-        setTitle(data.title)
-        setDescription(data.description)
-        setVideo(data.video)
-        setImages(data.images)
-        setTags(data.tags)
-        setMuscles(data.muscles)
-        setTechnique(data.technique)
-        setReps(data.reps)
-        setSets(data.sets)
-        setDuration(data.duration)
+        setTitle(data.title || '')
+        setDescription(data.description || '')
+        setVideo(data.video || '')
+        setImages([])
+        setTags(data.tags || [])
+        setMuscles(data.muscles || [])
+        setTechnique(data.technique || '')
+        setReps(data.reps || '')
+        setSets(data.sets || '')
+        setDuration(data.duration || '')
         setExercise(data)
+        setImagePreviews(data.images || [])
+
         console.log(data)
       } catch (error) {
         console.log(error)
@@ -262,7 +264,7 @@ const EditExerciseScreen = () => {
                     className="w-16 h-16 object-cover mr-2"
                   />
                 ))}
-                {/* {images.map((image, index) => (
+                {images.map((image, index) => (
                   <Image
                     key={index}
                     width={60}
@@ -271,7 +273,8 @@ const EditExerciseScreen = () => {
                     alt={`Image ${index + 1}`}
                     className="w-16 h-16 object-cover mr-2"
                   />
-                ))} */}
+                ))}
+
                 <div className="space-y-1 text-center">
                   <svg
                     className="mx-auto h-12 w-12 text-white"
