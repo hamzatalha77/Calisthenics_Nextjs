@@ -1,7 +1,5 @@
 'use client'
-
 import React from 'react'
-
 import Link from 'next/link'
 import { useSelectedLayoutSegment } from 'next/navigation'
 import useScroll from '../../hooks/use-scroll'
@@ -28,13 +26,15 @@ const Header = () => {
             className="flex flex-row space-x-3 items-center justify-center md:hidden"
           >
             <span className="h-7 w-7 bg-black rounded-lg" />
-            <span className="font-bold text-xl flex ">Calisthenics</span>
+            <span className="font-bold text-xl flex ">
+              <h2></h2>
+            </span>
           </Link>
         </div>
 
         <div className="hidden md:block">
           <div className="h-8 w-8 rounded-full bg-black flex items-center justify-center text-center">
-            <span className="font-semibold text-sm">HT</span>
+            <a href="/api/auth/logout">HT</a>
           </div>
         </div>
       </div>
