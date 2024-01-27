@@ -1,22 +1,20 @@
-import { useUser } from '@auth0/nextjs-auth0/client'
-import React from 'react'
+'use client'
 
-function page() {
-  const { user, isLoading, error } = useUser()
-  if (isLoading) {
-    return <div>Loading...</div>
-  }
-  if (error) {
-    return <div>Error</div>
-  }
-  if (user) {
-    return (
+import { useUser } from '@auth0/nextjs-auth0/client'
+
+export default function ProfileClient() {
+  const { user, error, isLoading } = useUser()
+
+  if (isLoading) return <div>Loading...</div>
+  if (error) return <div>{error.message}</div>
+
+  return (
+    user && (
       <div>
-        welcome to calisthenics {user.name}!{' '}
-        <a href="/api/auth/logout">Logout</a>
+        <img src={user.picture} alt={user.name} />
+        <h2>{user.nickname}</h2>
+        <p>{user.email}</p>
       </div>
     )
-  }
+  )
 }
-
-export default page

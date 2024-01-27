@@ -15,8 +15,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <UserProvider>
-      <html lang="en">
+    <html lang="en">
+      <UserProvider>
         <body className={`${inter.className}`}>
           <div className="flex">
             <SideNav />
@@ -29,7 +29,7 @@ export default function RootLayout({ children }) {
             </main>
           </div>
         </body>
-      </html>
-    </UserProvider>
+      </UserProvider>
+    </html>
   )
 }
