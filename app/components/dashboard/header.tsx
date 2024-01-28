@@ -1,9 +1,10 @@
 'use client'
 import React from 'react'
-import Link from 'next/link'
+
 import { useSelectedLayoutSegment } from 'next/navigation'
 import useScroll from '../../hooks/use-scroll'
 import { cn } from '../../lib/utils'
+import { signIn } from 'next-auth/react'
 
 const Header = () => {
   const scrolled = useScroll(5)
@@ -20,21 +21,9 @@ const Header = () => {
       )}
     >
       <div className="flex h-[47px] items-center justify-between px-4">
-        <div className="flex items-center space-x-4">
-          <Link
-            href="/"
-            className="flex flex-row space-x-3 items-center justify-center md:hidden"
-          >
-            <span className="h-7 w-7 bg-black rounded-lg" />
-            <span className="font-bold text-xl flex ">
-              <h2></h2>
-            </span>
-          </Link>
-        </div>
-
         <div className="hidden md:block">
           <div className="h-8 w-8 rounded-full bg-black flex items-center justify-center text-center">
-            <a href="/api/auth/logout">HT</a>
+            <button onClick={() => signIn('github')}>Login</button>
           </div>
         </div>
       </div>

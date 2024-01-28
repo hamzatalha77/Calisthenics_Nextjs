@@ -1,3 +1,4 @@
+import AuthProvider from './components/AuthProvider/AuthProvider'
 import Header from './components/dashboard/header'
 import HeaderMobile from './components/dashboard/header-mobile'
 import MarginWidthWrapper from './components/dashboard/margin-width-wrapper'
@@ -17,16 +18,18 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${inter.className}`}>
-        <div className="flex">
-          <SideNav />
-          <main className="flex-1">
-            <MarginWidthWrapper>
-              <Header />
-              <HeaderMobile />
-              <PageWrapper>{children}</PageWrapper>
-            </MarginWidthWrapper>
-          </main>
-        </div>
+        <AuthProvider>
+          <div className="flex">
+            <SideNav />
+            <main className="flex-1">
+              <MarginWidthWrapper>
+                <Header />
+                <HeaderMobile />
+                <PageWrapper>{children}</PageWrapper>
+              </MarginWidthWrapper>
+            </main>
+          </div>
+        </AuthProvider>
       </body>
     </html>
   )
