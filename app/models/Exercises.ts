@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose'
 
-const ExercisesSchema = new Schema(
+const exercisesSchema = new Schema(
   {
     title: {
       type: String,
@@ -54,6 +54,6 @@ const ExercisesSchema = new Schema(
 )
 
 const ExercisesModel =
-  mongoose.models.Exercises || mongoose.model('Exercises', ExercisesSchema)
+  mongoose.models.Exercises || mongoose.model('Exercises', exercisesSchema)
 
 export default ExercisesModel

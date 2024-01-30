@@ -17,6 +17,15 @@ export type Exercise = {
   createdAt: Date
   updatedAt: Date
 }
+export type User = {
+  _id: ObjectId
+  username: string
+  email: string
+  password: string
+  createdAt: Date
+  updatedAt: Date
+}
+
 export type SideNavItem = {
   title: string
   path: string

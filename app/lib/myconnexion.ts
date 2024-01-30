@@ -37,10 +37,9 @@ const categories = mydatabase.collection('categories')
 const subcategories = mydatabase.collection('subcategories')
 const users = mydatabase.collection('users')
 
-// Process will exit if there's an unhandled promise rejection
 process.on('unhandledRejection', (reason, promise) => {
   console.error('Unhandled Rejection at:', promise, 'reason:', reason)
-  // Close MongoDB connection on unhandled rejection
+
   disconnectFromMongo().finally(() => process.exit(1))
 })
 
