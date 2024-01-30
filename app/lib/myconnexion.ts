@@ -10,10 +10,7 @@ let client: MongoClient
 
 const connectToMongo = async () => {
   try {
-    client = new MongoClient(uri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    })
+    client = new MongoClient(uri, {})
     await client.connect()
     console.log('Connected to MongoDB')
   } catch (error) {
@@ -34,11 +31,11 @@ const disconnectFromMongo = async () => {
 
 connectToMongo()
 
-const db = client.db()
-const exercises = db.collection('exercises')
-const categories = db.collection('categories')
-const subcategories = db.collection('subcategories')
-const users = db.collection('users')
+const mydatabase = client.db()
+const exercises = mydatabase.collection('exercises')
+const categories = mydatabase.collection('categories')
+const subcategories = mydatabase.collection('subcategories')
+const users = mydatabase.collection('users')
 
 // Process will exit if there's an unhandled promise rejection
 process.on('unhandledRejection', (reason, promise) => {
@@ -51,7 +48,7 @@ export {
   client,
   connectToMongo,
   disconnectFromMongo,
-  db,
+  mydatabase,
   exercises,
   categories,
   subcategories,

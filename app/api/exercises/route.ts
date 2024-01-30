@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import { fetchExercises } from '../../lib/data'
 import slugify from 'slugify'
 import { ObjectId } from 'mongodb'
-import { exercises } from '../../lib/db'
+import { exercises } from '../../lib/myconnexion'
 
 export async function GET(req: Request, res: Response) {
   try {

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { exercises } from '../../../lib/db'
+import { exercises } from '../../../lib/myconnexion'
 import { ObjectId } from 'mongodb'
 import slugify from 'slugify'
 

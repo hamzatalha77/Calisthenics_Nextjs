@@ -1,6 +1,5 @@
 'use client'
 import React from 'react'
-
 import { useSelectedLayoutSegment } from 'next/navigation'
 import useScroll from '../../hooks/use-scroll'
 import { cn } from '../../lib/utils'
