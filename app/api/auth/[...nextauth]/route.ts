@@ -3,8 +3,7 @@ import { Account, User as AuthUser } from 'next-auth'
 import GithubProvider from 'next-auth/providers/github'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import bcrypt from 'bcryptjs'
-import { connectToMongo } from '../../../lib/myconnexion'
-import Users from '../../../models/Users'
+import { connectToMongo, users } from '../../../lib/myconnexion'
 
 export const authOptions: any = {
   providers: [
@@ -15,10 +14,10 @@ export const authOptions: any = {
         email: { label: 'Email', type: 'text' },
         password: { label: 'Password', type: 'password' }
       },
-      async authorize(credentials: any) {
+      async authorize(credentials: any): Promise<any | null> {
         await connectToMongo()
         try {
-          const user = await Users.findOne({ email: credentials.email })
+          const user = await users.findOne({ email: credentials.email })
           if (user) {
             const isPasswordCorrect = await bcrypt.compare(
               credentials.password,
@@ -28,6 +27,7 @@ export const authOptions: any = {
               return user
             }
           }
+          return null
         } catch (err: any) {
           throw new Error(err)
         }
@@ -40,19 +40,23 @@ export const authOptions: any = {
   ],
   callbacks: {
     async signIn({ user, account }: { user: AuthUser; account: Account }) {
-      if (account?.provider == 'credentials') {
+      if (account?.provider === 'credentials') {
         return true
       }
-      if (account?.provider == 'github') {
+      if (account?.provider === 'github') {
         await connectToMongo()
         try {
-          const existingUser = await Users.findOne({ email: user.email })
+          const existingUser = await users.findOne({ email: user.email })
           if (!existingUser) {
-            const newUser = new Users({
-              email: user.email
-            })
+            const hashedPassword = await bcrypt.hash('someRandomPassword', 5) // You may want to generate a random password for GitHub users.
+            const newUser = {
+              email: user.email,
+              password: hashedPassword,
+              createdAt: new Date(),
+              updatedAt: new Date()
+            }
 
-            await newUser.save()
+            await users.insertOne(newUser)
             return true
           }
           return true

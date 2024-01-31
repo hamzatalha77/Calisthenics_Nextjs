@@ -1,9 +1,9 @@
 'use client'
-import { signIn, useSession } from 'next-auth/react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { signIn, useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
 
 const LoginDashboardScreen = () => {
   const [email, setEmail] = useState('')
@@ -14,7 +14,7 @@ const LoginDashboardScreen = () => {
 
   useEffect(() => {
     if (session?.status === 'authenticated') {
-      router.replace('/interfaces/exercises')
+      router.replace('/interfaces/exercises/allExercise')
     }
   }, [session, router])
 
@@ -39,7 +39,7 @@ const LoginDashboardScreen = () => {
     })
     if (res?.error) {
       setError('Invalid Email or Password')
-      if (res?.url) router.replace('/interfaces/exercises')
+      if (res?.url) router.replace('/interfaces/exercises/allExercise')
     } else {
       setError('')
     }
