@@ -1,18 +1,19 @@
 import NextAuth from 'next-auth'
-import Credentials from 'next-auth/providers/credentials'
+import { Account, User as AuthUser } from 'next-auth'
 import GithubProvider from 'next-auth/providers/github'
+import CredentialsProvider from 'next-auth/providers/credentials'
+import bcrypt from 'bcryptjs'
 import { connectToMongo } from '../../../lib/myconnexion'
 import Users from '../../../models/Users'
-import bcrypt from 'bcryptjs'
 
-const handler = NextAuth({
+export const authOptions: any = {
   providers: [
-    Credentials({
+    CredentialsProvider({
       id: 'credentials',
-      name: 'credentials',
+      name: 'Credentials',
       credentials: {
-        email: { lable: 'Email', type: 'text' },
-        password: { lable: 'Password', type: 'password' }
+        email: { label: 'Email', type: 'text' },
+        password: { label: 'Password', type: 'password' }
       },
       async authorize(credentials: any) {
         await connectToMongo()
@@ -27,16 +28,42 @@ const handler = NextAuth({
               return user
             }
           }
-        } catch (error) {
-          throw new Error(error)
+        } catch (err: any) {
+          throw new Error(err)
         }
       }
     }),
     GithubProvider({
-      clientId: process.env.AUTH_GITHUB_ID ?? '',
-      clientSecret: process.env.AUTH_GITHUB_SECRET ?? ''
+      clientId: process.env.GITHUB_ID ?? '',
+      clientSecret: process.env.GITHUB_SECRET ?? ''
     })
-  ]
-})
+  ],
+  callbacks: {
+    async signIn({ user, account }: { user: AuthUser; account: Account }) {
+      if (account?.provider == 'credentials') {
+        return true
+      }
+      if (account?.provider == 'github') {
+        await connectToMongo()
+        try {
+          const existingUser = await Users.findOne({ email: user.email })
+          if (!existingUser) {
+            const newUser = new Users({
+              email: user.email
+            })
 
+            await newUser.save()
+            return true
+          }
+          return true
+        } catch (err) {
+          console.log('Error saving user', err)
+          return false
+        }
+      }
+    }
+  }
+}
+
+export const handler = NextAuth(authOptions)
 export { handler as GET, handler as POST }

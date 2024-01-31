@@ -1,14 +1,55 @@
 'use client'
+import { signIn, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import { useRouter } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
 
 const LoginDashboardScreen = () => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const router = useRouter()
+  const session = useSession()
+
+  useEffect(() => {
+    if (session?.status === 'authenticated') {
+      router.replace('/interfaces/exercises')
+    }
+  }, [session, router])
+
+  const isValidEmail = (email: string) => {
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
+    return emailRegex.test(email)
+  }
+  const handleSubmit = async (e: any) => {
+    e.preventDefault()
+    if (!isValidEmail(email)) {
+      setError('Email is not valid')
+      return
+    }
+    if (!password || password.length < 8) {
+      setError('Password is not valid')
+      return
+    }
+    const res = await signIn('credentials', {
+      redirect: false,
+      email,
+      password
+    })
+    if (res?.error) {
+      setError('Invalid Email or Password')
+      if (res?.url) router.replace('/interfaces/exercises')
+    } else {
+      setError('')
+    }
+  }
+
   return (
     <>
       <section className="bg-white dark:bg-gray-900">
         <div className="container flex items-center justify-center min-h-screen px-6 mx-auto">
-          <form className="w-full max-w-md">
+          <form onSubmit={handleSubmit} className="w-full max-w-md">
             <Image
               className="w-auto h-7 sm:h-8"
               src="https://merakiui.com/images/logo.svg"
@@ -43,6 +84,7 @@ const LoginDashboardScreen = () => {
                 type="email"
                 className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 placeholder="Email address"
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
 
@@ -68,18 +110,22 @@ const LoginDashboardScreen = () => {
                 type="password"
                 className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 
             <div className="mt-6">
-              <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+              <button
+                type="submit"
+                className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+              >
                 Sign in
               </button>
 
               <p className="mt-4 text-center text-gray-600 dark:text-gray-400">
                 or sign in with
               </p>
-
+              <p className="mt-4 text-center text-red-600">{error && error}</p>
               <a
                 href="#"
                 className="flex items-center justify-center px-6 py-3 mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
