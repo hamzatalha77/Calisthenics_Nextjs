@@ -48,7 +48,7 @@ export const authOptions: any = {
         try {
           const existingUser = await users.findOne({ email: user.email })
           if (!existingUser) {
-            const hashedPassword = await bcrypt.hash('someRandomPassword', 5) // You may want to generate a random password for GitHub users.
+            const hashedPassword = await bcrypt.hash('someRandomPassword', 5)
             const newUser = {
               email: user.email,
               password: hashedPassword,

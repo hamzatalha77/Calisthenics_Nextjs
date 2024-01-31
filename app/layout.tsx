@@ -1,11 +1,8 @@
+import './styles/globals.css'
 import AuthLayout from './layouts/AuthLayout'
 import DashboardLayout from './layouts/DashboardLayout'
-
-import './styles/globals.css'
-import { Inter } from 'next/font/google'
 import SessionProvider from './lib/SessionProvider'
 import { getServerSession } from 'next-auth'
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'Calisthenics App',

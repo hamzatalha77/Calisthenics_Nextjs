@@ -1,12 +1,12 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { Exercise } from '../../../types'
-import { useRouter } from 'next/navigation'
-import Link from 'next/link'
+import { redirect, useRouter } from 'next/navigation'
+import { getServerSession } from 'next-auth'
 
 const getExercises = async () => {
   try {
-    const res = await fetch('http://localhost:3000/api/exercises', {
+    const res = await fetch('/api/exercises', {
       cache: 'no-store'
     })
     if (!res.ok) {
@@ -23,6 +23,10 @@ export default function ExercisesList() {
   const [exercises, setExercises] = useState<Exercise[]>([])
   const [isDeleting, setIsDeleting] = useState(false)
   const router = useRouter()
+  // const session = getServerSession()
+  // if (!session) {
+  //   redirect('/interfaces/auth/login')
+  // }
 
   const fetchData = async () => {
     try {
@@ -35,7 +39,7 @@ export default function ExercisesList() {
 
   useEffect(() => {
     fetchData()
-  }, [router.query])
+  }, [])
 
   const handleDelete = async (id: any) => {
     setIsDeleting(true)
