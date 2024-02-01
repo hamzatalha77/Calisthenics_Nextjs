@@ -24,7 +24,12 @@ export const authOptions: any = {
               user.password
             )
             if (isPasswordCorrect) {
-              return user
+              return {
+                id: user._id,
+                name: user.username,
+                email: user.email,
+                image: user.avatar
+              }
             }
           }
           return null
@@ -52,6 +57,8 @@ export const authOptions: any = {
             const newUser = {
               email: user.email,
               password: hashedPassword,
+              username: user.name,
+              avatar: user.image,
               createdAt: new Date(),
               updatedAt: new Date()
             }

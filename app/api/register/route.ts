@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs'
 import { ObjectId } from 'mongodb'
 
 export const POST = async (request: any) => {
-  const { username, email, password } = await request.json()
+  const { username, email, password, avatar } = await request.json()
 
   await connectToMongo()
 
@@ -20,6 +20,7 @@ export const POST = async (request: any) => {
     _id: new ObjectId(),
     username,
     email,
+    avatar,
     password: hashedPassword,
     createdAt: now,
     updatedAt: now

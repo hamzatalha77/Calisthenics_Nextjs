@@ -20,6 +20,7 @@ export type Exercise = {
 export type User = {
   _id: ObjectId
   username: string
+  avatar: string
   email: string
   password: string
   createdAt: Date
