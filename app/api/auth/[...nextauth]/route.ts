@@ -24,12 +24,7 @@ export const authOptions: any = {
               user.password
             )
             if (isPasswordCorrect) {
-              return {
-                id: user._id,
-                name: user.username,
-                email: user.email,
-                image: user.avatar
-              }
+              return user
             }
           }
           return null
