@@ -1,8 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { Exercise } from '../../../types'
-import { redirect, useRouter } from 'next/navigation'
-import { getServerSession } from 'next-auth'
+import { useRouter } from 'next/navigation'
 
 const getExercises = async () => {
   try {

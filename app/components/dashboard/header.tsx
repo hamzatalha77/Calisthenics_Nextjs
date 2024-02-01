@@ -38,7 +38,7 @@ const Header = () => {
                 src={session.user?.avatar}
                 width={40}
                 height={40}
-                alt="userimage"
+                alt="user"
               />
               {session.user?.username}
               <div className="h-8 w-8 rounded-full bg-black flex items-center justify-center text-center">
