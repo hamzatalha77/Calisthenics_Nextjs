@@ -1,7 +1,7 @@
 import './styles/globals.css'
 import AuthLayout from './layouts/AuthLayout'
 import DashboardLayout from './layouts/DashboardLayout'
-import SessionProvider from './lib/SessionProvider'
+import SessionProvider from './utils/SessionProvider'
 import { getServerSession } from 'next-auth'
 
 export const metadata = {

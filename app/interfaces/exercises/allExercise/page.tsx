@@ -23,10 +23,6 @@ export default function ExercisesList() {
   const [exercises, setExercises] = useState<Exercise[]>([])
   const [isDeleting, setIsDeleting] = useState(false)
   const router = useRouter()
-  // const session = getServerSession()
-  // if (!session) {
-  //   redirect('/interfaces/auth/login')
-  // }
 
   const fetchData = async () => {
     try {

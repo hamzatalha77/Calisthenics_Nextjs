@@ -2,7 +2,7 @@
 import React from 'react'
 import { useSelectedLayoutSegment } from 'next/navigation'
 import useScroll from '../../hooks/use-scroll'
-import { cn } from '../../lib/utils'
+import { cn } from '../../utils/utils'
 import { signOut, useSession } from 'next-auth/react'
 
 const Header = () => {
