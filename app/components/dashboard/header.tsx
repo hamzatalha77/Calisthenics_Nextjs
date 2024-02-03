@@ -11,6 +11,7 @@ const Header = () => {
   const selectedLayout = useSelectedLayoutSegment()
   const { data: session }: any = useSession()
   console.log(session)
+
   return (
     <div
       className={cn(
