@@ -35,12 +35,12 @@ const Header = () => {
           ) : (
             <>
               <Image
-                src={session.user?.avatar}
+                src={session.user?.image}
                 width={40}
                 height={40}
                 alt="user"
               />
-              {session.user?.username}
+              {session.user?.name}
               <div className="h-8 w-8 rounded-full bg-black flex items-center justify-center text-center">
                 <button onClick={() => signOut()}>logout</button>
               </div>
