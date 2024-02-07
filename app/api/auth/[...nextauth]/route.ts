@@ -25,9 +25,12 @@ export const authOptions: any = {
             )
             if (isPasswordCorrect) {
               return user
+            } else {
+              throw new Error('Wrong Credentials!')
             }
+          } else {
+            throw new Error('User not found!')
           }
-          return null
         } catch (err: any) {
           throw new Error(err)
         }
