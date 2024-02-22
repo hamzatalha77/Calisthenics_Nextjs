@@ -25,7 +25,7 @@ const CreateExerciseScreen = (props: Props) => {
     e.preventDefault()
     try {
       const imagesUrls = await imageUpload()
-      fetch('http://localhost:3000/api/exercises', {
+      fetch('https://calisthenics-nextjs.vercel.app/api/exercises', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
