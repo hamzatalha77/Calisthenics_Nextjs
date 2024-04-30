@@ -19,6 +19,20 @@ export default async function RootLayout({ children }) {
       ) : (
         <AuthLayout>{children}</AuthLayout>
       )}
+      <Toaster>
+        {(t) => (
+          <ToastBar
+            toast={t}
+            style={{
+              ...t.style,
+              animation: t.visible
+                ? 'custom-enter 1s ease'
+                : 'custom-exit 1s ease'
+            }}
+          />
+        )}
+      </Toaster>
+      ;
     </SessionProvider>
   )
 }
